@@ -5,15 +5,15 @@
 SCRIPTNAME=$(basename $0)
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=asterix-0.8.7-incubating
+BASENAME=apache-asterixdb-hyracks-0.2.17-incubating
 ARCHIVENAME=$BASENAME-source-release
-MD5=7330e6d6c2dd691ae3ab6a641e4d5344
-SHA1=bf0b4a2ceaa26bcf1fcda33fee1ba227e31a88ba
-COMMIT=d2e1e89cfdf39e2b772dff2600913bb79644a380
-REPO=incubator-asterixdb
-TAG=asterix-0.8.7-incubating
+MD5=b7f48760a7fb1de52b690c94794ba6ba
+#SHA1=bf0b4a2ceaa26bcf1fcda33fee1ba227e31a88ba
+COMMIT=4112bf370fac4479b404ca59ef83b3bb9485a4c7
+REPO=incubator-asterixdb-hyracks
+TAG=apache-asterixdb-hyracks-0.2.17-incubating-rc0
 
-REPO_URL=https://dist.apache.org/repos/dist/release/incubator/asterixdb
+REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
 
 function get() {
     FILENAME=$1
@@ -42,43 +42,29 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
-.*\.adm
-.*\.aql
-.*\.cleaned
-.*\.csv
-.*\.csv.cr
-.*\.csv.crlf
-.*\.csv.lf
-.*\.ddl
-.*\.dot
-.*\.hcli
-.*\.iml
-.*\.json
-.*\.out
-.*\.plan
-.*\.ps
-.*\.scm
+target
+.*\.piglet
 .*\.tbl
-.*\.tbl\.big
-.*\.tsv
 .*\.txt
-.*large_text
-.*part-00000
-.*part-00001
-
-.*\.goutputstream-YQMB2V
-.*02-fuzzy-select
-.*LockRequestFile
-.*hosts
-.*id_rsa
-.*known_hosts
-
-.*bottle.py
-.*geostats.js
-.*jquery.autosize-min.js
-.*jquery.min.js
-.*rainbowvis.js
-.*smoothie.js
+.*\.js
+jquery-ui.css
+data1
+data2
+data3
+data4
+name1
+name2
+ClusterControllerService
+tpch.ddl
+scanMicroSortWrite.out
+master
+slaves
+wordcount.tsv
+conf.xml
+part-0
+part-0
+dist.all.first.cleaned
+dist.all.last.cleaned
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.11.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
@@ -132,12 +118,12 @@ diff -r $REPO $BASENAME
 
 echo "--- files ---"
 check $BASENAME NOTICE
-check $BASENAME LICENSE.txt
+check $BASENAME LICENSE
 check $BASENAME DISCLAIMER
 
 echo "--- build ---"
 pushd $BASENAME
-mvn clean package &> $LOGFILE
+mvn -o install -DskipTests &> $LOGFILE
 popd
 tail $LOGFILE
 
