@@ -3,6 +3,7 @@
 # runs some checks on an asterixdb source release artifact
 
 SCRIPTNAME=$(basename $0)
+. $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
 BASENAME=apache-asterixdb-0.8.8-incubating
@@ -14,28 +15,6 @@ REPO=incubator-asterixdb
 TAG=apache-asterixdb-0.8.8-incubating-rc1
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
-
-function get() {
-    FILENAME=$1
-    if [ -f "$FILENAME" ] 
-    then
-        echo "found $FILENAME"
-    else
-        echo "getting $FILENAME"
-        curl $REPO_URL/$FILENAME > $FILENAME
-    fi
-}
-
-function check() {
-    BASENAME=$1
-    FILENAME=$BASENAME/$2
-    if [ -f "$FILENAME" ] 
-    then
-        echo "check $FILENAME"
-    else
-        echo "$FILENAME missing"
-    fi
-}
 
 function rat() {
     DIRNAME=$1
@@ -91,25 +70,7 @@ EOF
 
 rm $LOGFILE
 
-for SUFFIX in zip zip.asc zip.md5 zip.sha1
-do
-    get $ARCHIVENAME.$SUFFIX
-done
-
-echo "--- MD5 ---"
-echo $MD5
-cat $ARCHIVENAME.zip.md5
-echo
-cat $ARCHIVENAME.zip | md5
-
-echo "--- SHA1 ---"
-echo $SHA1
-cat $ARCHIVENAME.zip.sha1
-echo
-cat $ARCHIVENAME.zip | shasum
-
-echo "--- signature ---"
-gpg --verify $ARCHIVENAME.zip.asc $ARCHIVENAME.zip
+checkArchives $ARCHIVENAME $MD5 $SHA1
 
 echo "--- RAT ---"
 [ -d $BASENAME ] || {
