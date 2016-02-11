@@ -6,10 +6,10 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=asterix-installer-0.8.8-incubating
+BASENAME=asterix-yarn-0.8.8-incubating
 ARCHIVENAME=$BASENAME-binary-assembly
-MD5=ebfb074c432f73b6407d0d35e0045d1f
-SHA1=fdc55e325427b23ca5b6120d92556c2aedb3eff7
+MD5=b85f142959e2ae1c72bbc9863938383f
+SHA1=ce3def891acff3d5766c62d95b68fe45b4a8a7b6
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
 
