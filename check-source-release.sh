@@ -5,13 +5,13 @@
 SCRIPTNAME=$(basename $0)
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-hyracks-0.2.17-incubating
+BASENAME=apache-asterixdb-0.8.8-incubating
 ARCHIVENAME=$BASENAME-source-release
-MD5=e8390e5821b5d10b3b8a996f59c7f06a
-SHA1=b1b3e1d7c19f9384e3f311aff54dba95acb9c788
-COMMIT=3945f24ea72908e8ded1a56c712de097a09e6d01
-REPO=incubator-asterixdb-hyracks
-TAG=apache-asterixdb-hyracks-0.2.17-incubating-rc1
+MD5=895dc8151d71fc489b42886b207eaa33
+SHA1=a98f783acb1b6dee93a574d7d7ea6dcb27480578
+COMMIT=a2389dd79543cea4b06474310065ea3018072c54
+REPO=incubator-asterixdb
+TAG=apache-asterixdb-0.8.8-incubating-rc1
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
 
@@ -43,28 +43,44 @@ function rat() {
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
 target
-.*\.piglet
+DEPENDENCIES
+.*\.adm
+.*\.aql
+.*\.cleaned
+.*\.csv
+.*\.csv.cr
+.*\.csv.crlf
+.*\.csv.lf
+.*\.ddl
+.*\.dot
+.*\.hcli
+.*\.iml
+.*\.json
+.*\.out
+.*\.plan
+.*\.ps
+.*\.scm
 .*\.tbl
+.*\.tbl\.big
+.*\.tsv
 .*\.txt
-.*\.js
-jquery-ui.css
-data1
-data2
-data3
-data4
-name1
-name2
-ClusterControllerService
-tpch.ddl
-scanMicroSortWrite.out
-master
-slaves
-wordcount.tsv
-conf.xml
-part-0
-part-0
-dist.all.first.cleaned
-dist.all.last.cleaned
+.*large_text
+.*part-00000
+.*part-00001
+
+.*\.goutputstream-YQMB2V
+.*02-fuzzy-select
+.*LockRequestFile
+.*hosts
+.*id_rsa
+.*known_hosts
+
+.*bottle.py
+.*geostats.js
+.*jquery.autosize-min.js
+.*jquery.min.js
+.*rainbowvis.js
+.*smoothie.js
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.11.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
@@ -123,7 +139,7 @@ check $BASENAME DISCLAIMER
 
 echo "--- build ---"
 pushd $BASENAME
-mvn -o install -DskipTests &> $LOGFILE
+mvn -o package &> $LOGFILE
 popd
 tail $LOGFILE
 
