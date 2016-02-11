@@ -7,11 +7,11 @@ LOGFILE=$(pwd)/$SCRIPTNAME.log
 
 BASENAME=apache-asterixdb-hyracks-0.2.17-incubating
 ARCHIVENAME=$BASENAME-source-release
-MD5=b7f48760a7fb1de52b690c94794ba6ba
-#SHA1=bf0b4a2ceaa26bcf1fcda33fee1ba227e31a88ba
-COMMIT=4112bf370fac4479b404ca59ef83b3bb9485a4c7
+MD5=e8390e5821b5d10b3b8a996f59c7f06a
+SHA1=b1b3e1d7c19f9384e3f311aff54dba95acb9c788
+COMMIT=3945f24ea72908e8ded1a56c712de097a09e6d01
 REPO=incubator-asterixdb-hyracks
-TAG=apache-asterixdb-hyracks-0.2.17-incubating-rc0
+TAG=apache-asterixdb-hyracks-0.2.17-incubating-rc1
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
 
