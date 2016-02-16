@@ -6,32 +6,34 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=asterix-yarn-0.8.8-incubating
+BASENAME=asterix-installer-0.8.8-incubating
 ARCHIVENAME=$BASENAME-binary-assembly
-MD5=b85f142959e2ae1c72bbc9863938383f
-SHA1=ce3def891acff3d5766c62d95b68fe45b4a8a7b6
+MD5=ebfb074c432f73b6407d0d35e0045d1f
+SHA1=fdc55e325427b23ca5b6120d92556c2aedb3eff7
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
 
 function nestedZips() {
-  ZIPFILE=$1
+  local ZIPFILE=$1
   zipinfo -1 $ZIPFILE | grep \.zip
 }
 
 function unwrapZip() {
-  ARCHIVEZIP=$1
-  ARCHIVENAME=$(echo $ARCHIVEZIP | sed -e's/.zip$//')
+  local ARCHIVEZIP=$1
+  echo -n "=== unwrapping $ARCHIVEZIP in "
+  pwd
+  local ARCHIVENAME=$(echo $ARCHIVEZIP | sed -e's/.zip$//')
   mkdir $ARCHIVENAME
-  pushd $ARCHIVENAME
+  pushd $ARCHIVENAME >/dev/null
   unzip ../$ARCHIVEZIP LICENSE NOTICE DISCLAIMER
   for ZIP in $(nestedZips ../$ARCHIVEZIP)
   do
     unzip ../$ARCHIVEZIP $ZIP
-    pushd $(dirname $ZIP)
+    pushd $(dirname $ZIP) >/dev/null
     unwrapZip $(basename $ZIP)
-    popd
+    popd >/dev/null
   done
-  popd
+  popd >/dev/null
 }
 
 checkArchives $ARCHIVENAME $MD5 $SHA1
