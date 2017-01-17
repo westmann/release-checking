@@ -6,7 +6,7 @@ function get() {
     then
         echo "found $FILENAME"
     else
-        echo "getting $FILENAME"
+        echo "getting $REPO_URL/$FILENAME"
         curl $REPO_URL/$FILENAME > $FILENAME
     fi
 }
@@ -24,18 +24,11 @@ function check() {
 
 function checkArchives() {
   ARCHIVENAME=$1
-  MD5=$2
-  SHA1=$3
-  for SUFFIX in zip zip.asc zip.md5 zip.sha1
+  SHA1=$2
+  for SUFFIX in zip zip.asc zip.sha1
   do
       get $ARCHIVENAME.$SUFFIX
   done
-
-  echo "--- MD5 ---"
-  echo $MD5
-  cat $ARCHIVENAME.zip.md5
-  echo
-  cat $ARCHIVENAME.zip | md5
 
   echo "--- SHA1 ---"
   echo $SHA1
