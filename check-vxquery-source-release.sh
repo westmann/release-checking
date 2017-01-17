@@ -34,7 +34,7 @@ ExpectedTestResults
 xqts.txt
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
-    java -jar ~/soft/apache-rat/apache-rat-0.11.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
+    java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
     echo "RAT report in $RATREPORT"
     echo -n "  "
     grep "Unknown Licenses" $RATREPORT
