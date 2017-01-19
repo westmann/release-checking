@@ -6,15 +6,17 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-hyracks-0.2.18
+BASENAME=apache-hyracks-0.3.0
 ARCHIVENAME=$BASENAME-source-release
-SHA1=176a5e89776a7390b3cb188e8d3b56f926f64d94
-COMMIT=e6af0eee8f27019c7cf2114e66572543bbe84d18
+SHA1=4d042cab164347f0cc5cc1cfb3da8d4f02eea1de
+COMMIT=def643d586b62b2616b8ab8e6fc3ba598cf5ad67
 REPO=asterixdb
 REPO_DIR=hyracks-fullstack
-TAG=apache-hyracks-0.2.18
+TAG=apache-hyracks-0.3.0-rc2
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
+
+MVN_ARGS=-DskipTests
 
 function rat() {
     DIRNAME=$1
@@ -84,6 +86,7 @@ then
     echo "found $REPO"
 else
     echo "getting $REPO"
+    echo git clone https://git-wip-us.apache.org/repos/asf/$REPO.git
     git clone https://git-wip-us.apache.org/repos/asf/$REPO.git >> $LOGFILE
 fi
 
@@ -99,7 +102,7 @@ check $BASENAME LICENSE
 
 echo "--- build ---"
 pushd $BASENAME
-mvn -o package &> $LOGFILE
+mvn -o package $MVN_ARGS &> $LOGFILE
 popd
 tail $LOGFILE
 
