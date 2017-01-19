@@ -6,13 +6,13 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-hyracks-0.3.0
+BASENAME=apache-asterixdb-0.9.0
 ARCHIVENAME=$BASENAME-source-release
-SHA1=4d042cab164347f0cc5cc1cfb3da8d4f02eea1de
-COMMIT=def643d586b62b2616b8ab8e6fc3ba598cf5ad67
+SHA1=49f8df822c6273a310027d3257a79afb45c8d446
+COMMIT=4383bdde78c02d597be65ecf467c5a7df85a2055
 REPO=asterixdb
-REPO_DIR=hyracks-fullstack
-TAG=apache-hyracks-0.3.0-rc2
+REPO_DIR=asterixdb
+TAG=apache-asterixdb-0.9.0-rc2
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -23,28 +23,30 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
+.*\.adm
+.*\.csv
+.*\.csv.cr
+.*\.csv.crlf
+.*\.csv.lf
+.*\.json
+.*\.tbl
+.*\.tbl\.big
+.*\.tsv
+.*\.ast
+.*\.plan
 EOF
 #target
 #DEPENDENCIES
-#.*\.adm
 #.*\.aql
 #.*\.cleaned
-#.*\.csv
-#.*\.csv.cr
-#.*\.csv.crlf
-#.*\.csv.lf
 #.*\.ddl
 #.*\.dot
 #.*\.hcli
 #.*\.iml
-#.*\.json
 #.*\.out
 #.*\.plan
 #.*\.ps
 #.*\.scm
-#.*\.tbl
-#.*\.tbl\.big
-#.*\.tsv
 #.*\.txt
 #.*large_text
 #.*part-00000
