@@ -16,7 +16,7 @@ TAG=apache-asterixdb-0.9.0-rc2
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
-MVN_ARGS=-DskipTests
+#MVN_ARGS=-DskipTests
 
 function rat() {
     DIRNAME=$1
@@ -104,7 +104,7 @@ check $BASENAME LICENSE
 
 echo "--- build ---"
 pushd $BASENAME
-mvn -o package $MVN_ARGS &> $LOGFILE
+mvn package $MVN_ARGS &> $LOGFILE
 popd
 tail $LOGFILE
 
