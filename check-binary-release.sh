@@ -6,11 +6,11 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=asterix-yarn-0.9.0
+BASENAME=asterix-yarn-0.9.1
 ARCHIVENAME=$BASENAME-binary-assembly
-SHA1=3ade0d2957e7f3e465e357aced6712ef72598613
+SHA1=8292657dfb0b81ab1d99a1fd4e5c7f9723803e38
 
-REPO_URL=https://dist.apache.org/repos/dist/dev/incubator/asterixdb
+REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
 function nestedZips() {
   local ZIPFILE=$1
