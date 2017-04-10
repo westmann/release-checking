@@ -6,13 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.0
+BASENAME=apache-hyracks-0.3.1
 ARCHIVENAME=$BASENAME-source-release
-SHA1=49f8df822c6273a310027d3257a79afb45c8d446
-COMMIT=4383bdde78c02d597be65ecf467c5a7df85a2055
+SHA1=9b004555bb45f8aec234cee1be04b264d603685a
+GERRIT_CHANGE=refs/changes/60/1660/1
 REPO=asterixdb
-REPO_DIR=asterixdb
-TAG=apache-asterixdb-0.9.0-rc2
+REPO_DIR=hyracks-fullstack
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -23,48 +22,15 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
-.*\.adm
-.*\.csv
-.*\.csv.cr
-.*\.csv.crlf
-.*\.csv.lf
-.*\.json
+.*\.txt
 .*\.tbl
-.*\.tbl\.big
-.*\.tsv
-.*\.ast
-.*\.plan
+.*tpch.ddl
+.*wordcount.tsv
+.*scanMicroSortWrite.out
+.*master
+.*slaves
+.*part-0
 EOF
-#target
-#DEPENDENCIES
-#.*\.aql
-#.*\.cleaned
-#.*\.ddl
-#.*\.dot
-#.*\.hcli
-#.*\.iml
-#.*\.out
-#.*\.plan
-#.*\.ps
-#.*\.scm
-#.*\.txt
-#.*large_text
-#.*part-00000
-#.*part-00001
-#
-#.*\.goutputstream-YQMB2V
-#.*02-fuzzy-select
-#.*LockRequestFile
-#.*hosts
-#.*id_rsa
-#.*known_hosts
-#
-#.*bottle.py
-#.*geostats.js
-#.*jquery.autosize-min.js
-#.*jquery.min.js
-#.*rainbowvis.js
-#.*smoothie.js
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
     echo "RAT report in $RATREPORT"
@@ -93,7 +59,7 @@ else
 fi
 
 pushd $REPO
-git checkout $COMMIT
+git fetch https://asterix-gerrit.ics.uci.edu/asterixdb $GERRIT_CHANGE && git checkout FETCH_HEAD
 popd
 
 diff -r $REPO/$REPO_DIR $BASENAME
