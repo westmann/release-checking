@@ -8,7 +8,7 @@ LOGFILE=$(pwd)/$SCRIPTNAME.log
 
 BASENAME=asterix-server-0.9.1
 ARCHIVENAME=$BASENAME-binary-assembly
-SHA1=68efd7daa8f8cc758ac618e2acc0923f2896ffd0
+SHA1=7a6bc04c8c2e3d7a31b071d7b4c6e1e34012fb6c
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
