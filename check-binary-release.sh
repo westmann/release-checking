@@ -6,9 +6,9 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=asterix-server-0.9.1
+BASENAME=asterix-installer-0.9.1
 ARCHIVENAME=$BASENAME-binary-assembly
-SHA1=7a6bc04c8c2e3d7a31b071d7b4c6e1e34012fb6c
+SHA1=df6721bfd9f5ae15463a23cb256ce92d9df19a4c
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
