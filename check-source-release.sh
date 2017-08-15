@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.1
+BASENAME=apache-hyracks-0.3.2
 ARCHIVENAME=$BASENAME-source-release
-SHA1=f11eb48b5ed0f033eac5f056398d6543160f1e52
-GERRIT_CHANGE=refs/changes/79/1679/1
+SHA1=1984e031570ece528c7bf860c19246870b01b431
+GERRIT_CHANGE=refs/changes/24/1924/1
 REPO=asterixdb
-REPO_DIR=asterixdb
+REPO_DIR=hyracks-fullstack
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -22,66 +22,14 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
-.*\.adm
-.*\.adm\.template
-.*\.ast
-.*\.cleaned
-.*\.csv
-.*\.dgen
-.*\.json
-.*\.plan
-.*\.tbl
-.*\.tbl\.big
-.*\.tbl\.verylong\.big
 .*\.txt
-.*\.regexadm
-.*\.regex
-.*\.ignore
-part-0000.*
-master
-slaves
-jobads\.new
-jobads\.old
-sample_08_header\.csv.*
-large_text
-tpch\.ddl
-overlapping\.data
-foo\.eps
-foo\.gpl
-gantt\.py
-vargantt1\.gpl
-vargantt1\.plt
-8\.dqgen
-classad-with-temporals\.classads
-customer\.scm
-lineitem\.scm
-nation\.scm
-orders\.scm
-part\.scm
-partsupp\.scm
-region\.scm
-supplier\.scm
-bootstrap-theme\.min\.css
-bootstrap\.min\.css
-glyphicons-halflings-regular\.svg
-angular\.min\.js
-bootstrap\.min\.js
-jquery-1\.12\.4\.min\.js
-jquery\.autosize-min\.js
-jquery\.min\.js
-rainbowvis\.js
-policy\.properties
-id_rsa
-id_rsa\.pub
-known_hosts
-LockRequestFile
-asm\.objectweb\.org_license\.html
-glassfish\.dev\.java\.net_public_CDDL_GPL_1_1\.html
-jline\.sourceforge\.net_license\.html
-www\.antlr\.org_license\.html
-www\.eclipse\.org_legal_epl-v10\.html
-www\.json\.org_license\.html
-www\.sun\.com_cddl_cddl\.html
+.*\.tbl
+.*tpch.ddl
+.*wordcount.tsv
+.*scanMicroSortWrite.out
+.*master
+.*slaves
+.*part-0
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
