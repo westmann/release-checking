@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-hyracks-0.3.3
+BASENAME=apache-asterixdb-0.9.3
 ARCHIVENAME=$BASENAME-source-release
-SHA1=1457b140e61a11da8caa6da75cbeba7c553371de
+SHA1=52ecae081b5d4ef8e7cabcd6531471c408a0a7ac
 GERRIT_CHANGE=refs/changes/70/2170/1
 REPO=asterixdb
-REPO_DIR=hyracks-fullstack
+REPO_DIR=asterixdb
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -22,14 +22,60 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
-.*\.txt
+.*\.adm
+.*big_object.*20M.*\.adm.template
+.*\.ast
+.*dist.*\.cleaned
+.*\.csv
+.*\.dgen
+.*\.csv.cr
+.*\.csv.crlf
+.*\.csv.lf
+.*\.json
+.*\.plan
+.*\.scm
 .*\.tbl
-.*tpch.ddl
-.*wordcount.tsv
-.*scanMicroSortWrite.out
-.*master
-.*slaves
-.*part-0
+.*\.tbl\.big
+order\.tbl\.verylong\.big
+.*\.tsv
+.*\.txt
+.*\.regexadm
+.*\.regex
+.*\.ignore
+part-0000.*
+jobads\.new
+jobads\.old
+large_text
+tpch\.ddl
+overlapping\.data
+foo\.eps
+foo\.gpl
+gantt\.py
+vargantt1\.gpl
+vargantt1\.plt
+8\.dqgen
+classad-with-temporals\.classads
+bootstrap-theme\.min\.css
+bootstrap\.min\.css
+glyphicons-halflings-regular\.svg
+angular\.min\.js
+bootstrap\.min\.js
+jquery-1\.12\.4\.min\.js
+jquery\.autosize-min\.js
+jquery\.min\.js
+rainbowvis\.js
+policy\.properties
+id_rsa
+id_rsa\.pub
+known_hosts
+LockRequestFile
+asm\.objectweb\.org_license\.html
+glassfish\.dev\.java\.net_public_CDDL_GPL_1_1\.html
+jline\.sourceforge\.net_license\.html
+www\.antlr\.org_license\.html
+www\.eclipse\.org_legal_epl-v10\.html
+www\.json\.org_license\.html
+www\.sun\.com_cddl_cddl\.html
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
