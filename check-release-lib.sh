@@ -24,17 +24,17 @@ function check() {
 
 function checkArchives() {
   ARCHIVENAME=$1
-  SHA1=$2
-  for SUFFIX in zip zip.asc zip.sha1
+  SHA256=$2
+  for SUFFIX in zip zip.asc zip.sha256
   do
       get $ARCHIVENAME.$SUFFIX
   done
 
-  echo "--- SHA1 ---"
-  echo $SHA1
-  cat $ARCHIVENAME.zip.sha1
+  echo "--- SHA256 ---"
+  echo $SHA256
+  cat $ARCHIVENAME.zip.sha256
   echo
-  cat $ARCHIVENAME.zip | shasum
+  cat $ARCHIVENAME.zip | shasum -a 256
 
   echo "--- signature ---"
   gpg --verify $ARCHIVENAME.zip.asc $ARCHIVENAME.zip

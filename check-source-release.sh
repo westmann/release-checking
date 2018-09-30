@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.3
+BASENAME=apache-hyracks-0.3.4
 ARCHIVENAME=$BASENAME-source-release
-SHA1=52ecae081b5d4ef8e7cabcd6531471c408a0a7ac
-GERRIT_CHANGE=refs/changes/70/2170/1
+SHA256=8d3d8c734d0e49b145619d8e083aea4cd599adb2b9fe148b05eac8550caf1764
+GERRIT_CHANGE=refs/changes/52/2952/1
 REPO=asterixdb
-REPO_DIR=asterixdb
+REPO_DIR=hyracks-fullstack
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -22,60 +22,14 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
-.*\.adm
-.*big_object.*20M.*\.adm.template
-.*\.ast
-.*dist.*\.cleaned
-.*\.csv
-.*\.dgen
-.*\.csv.cr
-.*\.csv.crlf
-.*\.csv.lf
-.*\.json
-.*\.plan
-.*\.scm
-.*\.tbl
-.*\.tbl\.big
-order\.tbl\.verylong\.big
-.*\.tsv
 .*\.txt
-.*\.regexadm
-.*\.regex
-.*\.ignore
-part-0000.*
-jobads\.new
-jobads\.old
-large_text
-tpch\.ddl
-overlapping\.data
-foo\.eps
-foo\.gpl
-gantt\.py
-vargantt1\.gpl
-vargantt1\.plt
-8\.dqgen
-classad-with-temporals\.classads
-bootstrap-theme\.min\.css
-bootstrap\.min\.css
-glyphicons-halflings-regular\.svg
-angular\.min\.js
-bootstrap\.min\.js
-jquery-1\.12\.4\.min\.js
-jquery\.autosize-min\.js
-jquery\.min\.js
-rainbowvis\.js
-policy\.properties
-id_rsa
-id_rsa\.pub
-known_hosts
-LockRequestFile
-asm\.objectweb\.org_license\.html
-glassfish\.dev\.java\.net_public_CDDL_GPL_1_1\.html
-jline\.sourceforge\.net_license\.html
-www\.antlr\.org_license\.html
-www\.eclipse\.org_legal_epl-v10\.html
-www\.json\.org_license\.html
-www\.sun\.com_cddl_cddl\.html
+.*\.tbl
+.*tpch.ddl
+.*wordcount.tsv
+.*scanMicroSortWrite.out
+.*master
+.*slaves
+.*part-0
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
@@ -86,7 +40,7 @@ EOF
 
 rm $LOGFILE
 
-checkArchives $ARCHIVENAME $SHA1
+checkArchives $ARCHIVENAME $SHA256
 
 echo "--- RAT ---"
 [ -d $BASENAME ] || {
