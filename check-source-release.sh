@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-hyracks-0.3.5
+BASENAME=apache-asterixdb-0.9.5
 ARCHIVENAME=$BASENAME-source-release
-SHA256=a90e1f8e06ed78bfc9d2d3dd3bcdf996d738d8193a4d94fe3f5cd8b4c447ee2e
+SHA256=1eecef9152ec2e390833830702222456a38876e4bf6127cb6800b1e2e365f207
 GERRIT_CHANGE=refs/changes/91/3491/1
 REPO=asterixdb
-REPO_DIR=hyracks-fullstack
+REPO_DIR=asterixdb
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -22,14 +22,54 @@ function rat() {
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
     cat > $RATEXCLUDES << EOF
-.*\.txt
+.*\.adm
+.*big_object.*20M.*\.adm.template
+.*\.ast
+.*dist.*\.cleaned
+.*\.csv
+.*\.dgen
+.*\.csv.cr
+.*\.csv.crlf
+.*\.csv.lf
+.*\.json
+.*\.plan
+.*\.scm
 .*\.tbl
-.*tpch.ddl
-.*wordcount.tsv
-.*scanMicroSortWrite.out
-.*master
-.*slaves
-.*part-0
+.*\.tbl\.big
+order\.tbl\.verylong\.big
+.*\.tsv
+.*\.txt
+.*\.regexadm
+.*\.regex
+.*\.ignore
+part-0000.*
+jobads\.new
+jobads\.old
+large_text
+tpch\.ddl
+overlapping\.data
+classad-with-temporals\.classads
+bootstrap\.min\.js
+jquery\.autosize-min\.js
+jquery\.min\.js
+rainbowvis\.js
+policy\.properties
+LockRequestFile
+asm\.objectweb\.org_license\.html
+glassfish\.dev\.java\.net_public_CDDL_GPL_1_1\.html
+jline\.sourceforge\.net_license\.html
+www\.antlr\.org_license\.html
+www\.eclipse\.org_legal_epl-v10\.html
+www\.json\.org_license\.html
+www\.sun\.com_cddl_cddl\.html
+cc.crt
+cc.key
+asterix_nc1.crt
+asterix_nc1.key
+asterix_nc2.crt
+asterix_nc2.key
+rootCA.crt
+rootCA.key
 EOF
     echo "running RAT with excludes in $RATEXCLUDES"
     java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
