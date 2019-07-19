@@ -6,10 +6,10 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.4
+BASENAME=apache-asterixdb-0.9.4.1
 ARCHIVENAME=$BASENAME-source-release
-SHA256=2bedc3e30bdebdc26ae7fdbe4ce9b2ec8d546a195ee8bc05f7e0e516e747bfe8
-GERRIT_CHANGE=refs/changes/52/2952/1
+SHA256=8bdb79294f20ff0140ea46b4a6acf5b787ac1ff3423ec41d5c5c8cdec275000c
+GERRIT_CHANGE=refs/changes/08/3208/1
 REPO=asterixdb
 REPO_DIR=asterixdb
 
@@ -86,8 +86,8 @@ then
     echo "found $REPO"
 else
     echo "getting $REPO"
-    echo git clone https://git-wip-us.apache.org/repos/asf/$REPO.git
-    git clone https://git-wip-us.apache.org/repos/asf/$REPO.git >> $LOGFILE
+    echo git clone https://gitbox.apache.org/repos/asf/$REPO.git
+    git clone https://gitbox.apache.org/repos/asf/$REPO.git >> $LOGFILE
 fi
 
 pushd $REPO
