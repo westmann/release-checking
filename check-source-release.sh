@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.5
+BASENAME=apache-hyracks-0.3.5
 ARCHIVENAME=$BASENAME-source-release
-SHA256=1eecef9152ec2e390833830702222456a38876e4bf6127cb6800b1e2e365f207
-GERRIT_CHANGE=refs/changes/91/3491/1
+SHA256=577d2b3da91ebfa37c113bae18561dcbfae0bdd526edee604b747f6044f4a03b
+GERRIT_CHANGE=refs/changes/24/7124/1
 REPO=asterixdb
-REPO_DIR=asterixdb
+REPO_DIR=hyracks-fullstack
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -21,7 +21,18 @@ function rat() {
     DIRNAME=$1
     RATREPORT=$(pwd)/rat.report
     RATEXCLUDES=$(pwd)/rat.excludes
-    cat > $RATEXCLUDES << EOF
+    ratexcludes > $RATEXCLUDES
+    echo "running RAT with excludes in $RATEXCLUDES"
+    java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
+    echo "RAT report in $RATREPORT"
+    echo -n "  "
+    grep "Unknown Licenses" $RATREPORT
+}
+
+function ratexcludes() {
+    case $REPO_DIR in
+    asterixdb)
+        cat << EOF
 .*\.adm
 .*big_object.*20M.*\.adm.template
 .*\.ast
@@ -31,6 +42,7 @@ function rat() {
 .*\.csv.cr
 .*\.csv.crlf
 .*\.csv.lf
+.*\.iml
 .*\.json
 .*\.plan
 .*\.scm
@@ -71,11 +83,25 @@ asterix_nc2.key
 rootCA.crt
 rootCA.key
 EOF
-    echo "running RAT with excludes in $RATEXCLUDES"
-    java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
-    echo "RAT report in $RATREPORT"
-    echo -n "  "
-    grep "Unknown Licenses" $RATREPORT
+        ;;
+    hyracks-fullstack)
+        cat << EOF
+.*\.iml
+.*\.txt
+.*\.tbl
+.*tpch.ddl
+.*wordcount.tsv
+.*scanMicroSortWrite.out
+.*master
+.*slaves
+.*part-0
+EOF
+        ;;
+    *)
+        >&2 echo ERROR Unknown project $REPO_DIR
+        exit 1
+        ;;
+    esac
 }
 
 rm $LOGFILE
