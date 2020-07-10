@@ -6,10 +6,13 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=asterix-server-0.9.5
-RELEASENAME=apache-asterixdb-0.9.5
+ASTERIX_VERSION=0.9.5
+HYRACKS_VERSION=0.3.5
+
+BASENAME=asterix-server-$ASTERIX_VERSION
+RELEASENAME=apache-asterixdb-$ASTERIX_VERSION
 ARCHIVENAME=$BASENAME-binary-assembly
-SHA256=d80ff63ea5796022f6ce58676d3954438ce703a1da06c5f382b8ace3d4719445
+SHA256=6854e71fc78f9cfb68b0dc3c61edb5f5c94b09b41f4a8deaf4c2fc9d804abcac
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -33,7 +36,11 @@ pushd $ARCHIVEDIR/$RELEASENAME
 
 echo "=== checking LICENSE against repo"
 awk '/- repo/ { print $2 }' LICENSE | sort > lic.txt
-ls -1 repo/* | sort > repo.txt
+ls -1 repo/* | \
+    grep -v algebricks-.*-$HYRACKS_VERSION.jar | \
+    grep -v hyracks-.*-$HYRACKS_VERSION.jar | \
+    grep -v asterix-.*-$ASTERIX_VERSION.jar | \
+    sort > repo.txt
 diff repo.txt lic.txt
 
 echo "=== check NOTICE in $(PWD)/NOTICE"
