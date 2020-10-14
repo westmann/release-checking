@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.5
+BASENAME=apache-hyracks-0.3.6
 ARCHIVENAME=$BASENAME-source-release
-SHA256=09affe9ce5aa75add6c5a75c51505e619f85cb7a87eb3b9d977ac472d5387bd1
-GERRIT_CHANGE=refs/changes/24/7124/1
+SHA256=40546121dab77f49f29d74f9ae8138a0dc94daf8b6e4f6ed42e070d1981efdcb
+GERRIT_CHANGE=refs/changes/25/8225/2
 REPO=asterixdb
-REPO_DIR=asterixdb
+REPO_DIR=hyracks-fullstack
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
