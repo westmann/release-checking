@@ -6,12 +6,12 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-hyracks-0.3.7
+BASENAME=apache-asterixdb-0.9.7
 ARCHIVENAME=$BASENAME-source-release
-SHA256=f4ca4e806f41baa68275d2be40a414066374830b794c9bf811dcebfeefea3587
+SHA256=fdcb0396ed9106203656b07203fffa44e34003565f8a55ee982ee89c0b9b0a5b
 GERRIT_CHANGE=refs/changes/03/11903/1
 REPO=asterixdb
-REPO_DIR=hyracks-fullstack
+REPO_DIR=asterixdb
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -53,7 +53,9 @@ order\.tbl\.verylong\.big
 .*\.txt
 .*\.regexadm
 .*\.regex
+.*\.regexjson
 .*\.ignore
+.*\.ebnf
 part-0000.*
 jobads\.new
 jobads\.old
@@ -82,6 +84,7 @@ asterix_nc2.crt
 asterix_nc2.key
 rootCA.crt
 rootCA.key
+passwd
 EOF
         ;;
     hyracks-fullstack)
