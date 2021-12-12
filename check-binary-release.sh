@@ -6,13 +6,13 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-ASTERIX_VERSION=0.9.7
-HYRACKS_VERSION=0.3.7
+ASTERIX_VERSION=0.9.7.1
+HYRACKS_VERSION=0.3.7.1
 
 BASENAME=asterix-server-$ASTERIX_VERSION
 RELEASENAME=apache-asterixdb-$ASTERIX_VERSION
 ARCHIVENAME=$BASENAME-binary-assembly
-SHA256=fb38aed1daaca7faa2aeb8b45ff7ab227e11ca1e92ab4995fb973fefcc794611
+SHA256=d78c6725eed3386a63ca801e4caa5595bdf2b91c8cf993490e3e429ffc42c163
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
