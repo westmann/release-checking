@@ -6,12 +6,13 @@ SCRIPTNAME=$(basename $0)
 . $(dirname $0)/check-release-lib.sh
 LOGFILE=$(pwd)/$SCRIPTNAME.log
 
-BASENAME=apache-asterixdb-0.9.7.1
+BASENAME=apache-hyracks-0.3.8
 ARCHIVENAME=$BASENAME-source-release
-SHA256=a698f6246347592263858af349de206d2636984d040d27bb82770a2a5c6bc0b4
-GERRIT_CHANGE=refs/changes/04/14504/2
+SHA256=afb64eaafca38ed4ad8b3e80ebbdd189329b664609138a7dbb8fb621049d9f020984bec8ad22bc53695ac0e327b151a95f271a9a09fbe03d4c84a1aaea2aadd0
+GERRIT_CHANGE=refs/changes/44/16244/1
+
 REPO=asterixdb
-REPO_DIR=asterixdb
+REPO_DIR=hyracks-fullstack
 
 REPO_URL=https://dist.apache.org/repos/dist/dev/asterixdb
 
@@ -23,7 +24,7 @@ function rat() {
     RATEXCLUDES=$(pwd)/rat.excludes
     ratexcludes > $RATEXCLUDES
     echo "running RAT with excludes in $RATEXCLUDES"
-    java -jar ~/soft/apache-rat/apache-rat-0.12.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
+    java -jar ~/soft/apache-rat/apache-rat-0.13.jar -E $RATEXCLUDES -d $DIRNAME > $RATREPORT
     echo "RAT report in $RATREPORT"
     echo -n "  "
     grep "Unknown Licenses" $RATREPORT
